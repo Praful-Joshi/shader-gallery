@@ -1,0 +1,13 @@
+# Node
+backend/node_modules/
+backend/.env
+backend/dist/
+.cache/
+*.log
+
+# Prisma
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+
+# VS Code
+.vscode/
