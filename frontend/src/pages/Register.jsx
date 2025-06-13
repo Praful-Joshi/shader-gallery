@@ -1,20 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
-export default function Auth() {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    // TODO: Send login request to backend
-    console.log("Logging in with:", { email, password });
+    // TODO: Send register request to backend
+    console.log("Registering with:", { email, password });
   };
 
   return (
     <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin} style={{ marginTop: "1rem" }}>
+      <h2>Create Account</h2>
+      <form onSubmit={handleRegister} style={{ marginTop: "1rem" }}>
         <input
           type="email"
           placeholder="Email"
@@ -33,12 +32,8 @@ export default function Auth() {
           style={{ marginBottom: "1rem", padding: "0.5rem", width: "200px" }}
         />
         <br />
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
-
-      <p style={{ marginTop: "1rem" }}>
-        Don't have an account? <Link to="/register">Create Account</Link>
-      </p>
     </div>
   );
 }
