@@ -1,14 +1,37 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // TODO: Send login request to backend
-    console.log("Logging in with:", { email, password });
+
+    try {
+      const res = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      console.log("Login response:", data);
+
+      if (res.ok) {
+        alert("Login successful!");
+        // TODO: Save token if needed
+        navigate("/"); // Go to homepage or profile
+      } else {
+        alert(data.error || "Login failed");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Something went wrong");
+    }
   };
 
   return (

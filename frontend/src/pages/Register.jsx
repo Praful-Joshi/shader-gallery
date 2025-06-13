@@ -1,13 +1,36 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // TODO: Send register request to backend
-    console.log("Registering with:", { email, password });
+
+    try {
+      const res = await fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      console.log("Register response:", data);
+
+      if (res.ok) {
+        alert("Account created! You can now log in.");
+        navigate("/auth");
+      } else {
+        alert(data.error || "Registration failed");
+      }
+    } catch (err) {
+      console.error("Register error:", err);
+      alert("Something went wrong");
+    }
   };
 
   return (
